@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+    background-color: #B3E2FF;
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,8 +11,8 @@ body {
 }
 
 .banner {
-    background-color: hotpink; /* Changed to hot pink */
-    color: white;
+    background-color: #B374FF; 
+    color: #B3E2FF;
     text-align: center;
     padding: 20px;
     width: 100%;
@@ -23,9 +23,9 @@ body {
 }
 
 h1 {
-    font-size: 24px; /* Smaller font size */
+    font-size: 24px; 
 }
 
 h2 {
-    font-size: 18px; /* Smaller font size */
+    font-size: 18px; 
 }

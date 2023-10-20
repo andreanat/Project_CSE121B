@@ -1,6 +1,9 @@
+/* Global Variables */
 const apiUrl = 'https://shein-xi-yin-data-service.p.rapidapi.com/product/get_best_sellers_list?country=US&language=en&currency=USD&page=1&size=20';
+const templesElement = document.getElementById('temples');
+const templeList = [];
 
-// fetch
+/* Function to Fetch Data from Shein API */
 async function fetchData() {
     try {
         const response = await fetch(apiUrl, {
@@ -22,34 +25,64 @@ async function fetchData() {
     }
 }
 
-function displayTrends(trends) {
-    const trendsContainer = document.getElementById('trends');
-    trendsContainer.innerHTML = '';
+/* Function to Display Temples */
+function displayTemples(templeList) {
+    reset();
+    templeList.forEach((temple) => {
+        const articleElement = document.createElement('article');
 
-    trends.forEach(trend => {
-        const trendElement = document.createElement('div');
-        trendElement.innerHTML = `
-            <h2>${trend.name}</h2>
-            <p>${trend.description}</p>
-            <p>Price: ${trend.price}</p>
-        `;
-        trendsContainer.appendChild(trendElement);
+        const h3Element = document.createElement('h3');
+        h3Element.textContent = temple.templeName;
+
+        const imgElement = document.createElement('img');
+        imgElement.src = temple.imageUrl;
+        imgElement.alt = temple.location;
+
+        articleElement.appendChild(h3Element);
+        articleElement.appendChild(imgElement);
+        templesElement.appendChild(articleElement);
     });
 }
 
-function filterTrends(trends, criteria) {
-    return trends.filter(trend => {
-        // filter
-        return true; 
-    });
+/* Function to Reset Temples Element */
+function reset() {
+    while (templesElement.firstChild) {
+        templesElement.removeChild(templesElement.firstChild);
+    }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const trendsData = await fetchData();
-    const trends = trendsData.items;
+/* Event Listener */
+document.querySelector('#sortBy').addEventListener('change', () => {
+    const filter = document.getElementById('sortBy').value;
 
-    displayTrends(trends);
+    switch (filter) {
+        case 'utah':
+            const utahTemples = templeList.filter((temp) => temp.location.includes('Utah'));
+            displayTemples(utahTemples);
+            break;
 
-    const filterOptions = document.getElementById('filters');
-    
+        case 'nonutah':
+            const nonUtahTemples = templeList.filter((temp) => !temp.location.includes('Utah'));
+            displayTemples(nonUtahTemples);
+            break;
+
+        case 'older':
+            const olderTemples = templeList.filter((temp) => new Date(temp.dedicated) < new Date(1950, 0, 1));
+            displayTemples(olderTemples);
+            break;
+
+        case 'all':
+        default:
+            displayTemples(templeList);
+            break;
+    }
 });
+
+/* Main Function */
+async function main() {
+    const fetchedData = await fetchData();
+    templeList.push(...fetchedData.items);
+    displayTemples(templeList);
+}
+
+main();

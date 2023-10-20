@@ -11,7 +11,7 @@ body {
 }
 
 .banner {
-    background-color: #B374FF; 
+    background-color: #00336D; 
     color: #B3E2FF;
     text-align: center;
     padding: 20px;
@@ -23,9 +23,9 @@ body {
 }
 
 h1 {
-    font-size: 24px; 
+    font-size: 12px; 
 }
 
 h2 {
-    font-size: 18px; 
+    font-size: 10px; 
 }

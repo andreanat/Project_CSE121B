@@ -26,29 +26,28 @@ async function fetchData() {
         return null;
     }
 }
-/* ... (previous code) */
 
 /* Function to Display a Random Product */
 function displayRandomProduct() {
     reset();
-    if (clothesList.length > 0) {
-        const randomIndex = Math.floor(Math.random() * clothesList.length);
-        const randomProduct = clothesList[randomIndex];
+    if (templeList.length > 0) {
+        const randomIndex = Math.floor(Math.random() * templeList.length);
+        const randomTemple = templeList[randomIndex];
         
         const articleElement = document.createElement('article');
         
         const h3Element = document.createElement('h3');
-        h3Element.textContent = randomProduct.productName;
+        h3Element.textContent = randomTemple.templeName;
 
         const imgElement = document.createElement('img');
-        imgElement.src = randomProduct.imageUrl;
-        imgElement.alt = randomProduct.productName;
+        imgElement.src = randomTemple.imageUrl;
+        imgElement.alt = randomTemple.location;
         
         articleElement.appendChild(h3Element);
         articleElement.appendChild(imgElement);
-        clothesElement.appendChild(articleElement);
+        templesElement.appendChild(articleElement);
     } else {
-        console.log('No products to display.');
+        console.log('No temples to display.');
     }
 }
 
@@ -110,10 +109,10 @@ document.querySelector('#sortBy').addEventListener('change', () => {
     }
 });
 
-/* Main Function */
 async function main() {
     const fetchedData = await fetchData();
-    clothesList.push(...fetchedData.data); // Make sure the API response structure is correct
-    displayClothes(clothesList);
+    templeList.push(...fetchedData.items); // Make sure the API response structure is correct
+    displayTemples(templeList);
 }
 
+main();

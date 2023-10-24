@@ -1,16 +1,16 @@
 /* Global Variables */
 const apiUrl = 'https://shein-xi-yin-data-service.p.rapidapi.com/product/get_best_sellers_list?country=US&language=en&currency=USD&page=1&size=20';
 const clothesElement = document.getElementById('clothes');
-const templeList = [];
+const clothesList = []; 
 
-/* Function to Fetch Data from Shein API */
+/*  Fetch Data */
 async function fetchData() {
     try {
         const response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
                 'X-RapidAPI-Key': '21b97010d1msh813e1f0277b243ep120b26jsn616f4ee34816',
-                'X-RapidAPI-Host': 'shein-Xi-Yin-data-service.p.rapidapi.com'
+                'X-RapidAPI-Host': 'shein-xi-yin-data-service.p.rapidapi.com'
             }
         });
         if (response.ok) {
@@ -25,23 +25,21 @@ async function fetchData() {
     }
 }
 
-
-/* Function to Display a Random Product */
+/* function */
 function displayRandomProduct() {
     if (clothesList.length > 0) {
         const randomIndex = Math.floor(Math.random() * clothesList.length);
         const randomCloth = clothesList[randomIndex];
-        
+
         const articleElement = document.createElement('article');
-        
+
         const h3Element = document.createElement('h3');
         h3Element.textContent = randomCloth.productName;
 
         const imgElement = document.createElement('img');
         imgElement.src = randomCloth.imageUrl;
         imgElement.alt = randomCloth.productName;
-        imgElement.classList.add('product-image'); // Add a class for styling
-
+        imgElement.classList.add('product-image'); 
         articleElement.appendChild(h3Element);
         articleElement.appendChild(imgElement);
 
@@ -52,9 +50,7 @@ function displayRandomProduct() {
     }
 }
 
-document.getElementById('showRandomProductButton').addEventListener('click', displayRandomProduct);
-
-/* Event Listener */
+/* function*/
 document.querySelector('#sortBy').addEventListener('change', () => {
     const filter = document.getElementById('sortBy').value;
 
@@ -71,7 +67,7 @@ document.querySelector('#sortBy').addEventListener('change', () => {
 
         case 'bottom':
             const bottoms = clothesList.filter((clothe) => clothe.category === 'bottoms');
-            displayClothes(bottoms); 
+            displayClothes(bottoms);
             break;
 
         case 'all':
@@ -81,11 +77,15 @@ document.querySelector('#sortBy').addEventListener('change', () => {
     }
 });
 
-/* Main Function */
+/* Main */
 async function main() {
     const fetchedData = await fetchData();
-    clothesList.push(...fetchedData.data);
-    displayRandomProduct();
+    if (fetchedData) {
+        clothesList.push(...fetchedData.data);
+        displayRandomProduct();
+    } else {
+        console.log('Failed to fetch data. Please check your API key and network connection.');
+    }
 }
 
 main();

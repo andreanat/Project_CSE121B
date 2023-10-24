@@ -25,29 +25,29 @@ async function fetchData() {
     }
 }
 
-/* Function to Display Temples */
-function displayTemples(templeList) {
+/* Function to Display Clothes */
+function displayClothes(clothesList) {
     reset();
-    templeList.forEach((temple) => {
+    clothesList.forEach((clothe) => {
         const articleElement = document.createElement('article');
 
         const h3Element = document.createElement('h3');
-        h3Element.textContent = temple.templeName;
+        h3Element.textContent = clothe.productName; // Make sure the API response key is correct
 
         const imgElement = document.createElement('img');
-        imgElement.src = temple.imageUrl;
-        imgElement.alt = temple.location;
+        imgElement.src = clothe.imageUrl; // Make sure the API response key is correct
+        imgElement.alt = clothe.productName; // Make sure the API response key is correct
 
         articleElement.appendChild(h3Element);
         articleElement.appendChild(imgElement);
-        templesElement.appendChild(articleElement);
+        clothesElement.appendChild(articleElement);
     });
 }
 
-/* Function to Reset Temples Element */
+/* Function to Reset Clothes Element */
 function reset() {
-    while (templesElement.firstChild) {
-        templesElement.removeChild(templesElement.firstChild);
+    while (clothesElement.firstChild) {
+        clothesElement.removeChild(clothesElement.firstChild);
     }
 }
 
@@ -56,24 +56,24 @@ document.querySelector('#sortBy').addEventListener('change', () => {
     const filter = document.getElementById('sortBy').value;
 
     switch (filter) {
-        case 'utah':
-            const utahTemples = templeList.filter((temp) => temp.location.includes('Utah'));
-            displayTemples(utahTemples);
+        case 'sandals':
+            const sandals = clothesList.filter((clothe) => clothe.category === 'sandals'); // Make sure the API response key is correct
+            displayClothes(sandals);
             break;
 
-        case 'nonutah':
-            const nonUtahTemples = templeList.filter((temp) => !temp.location.includes('Utah'));
-            displayTemples(nonUtahTemples);
+        case 'shirts':
+            const shirts = clothesList.filter((clothe) => clothe.category === 'shirts'); // Make sure the API response key is correct
+            displayClothes(shirts);
             break;
 
-        case 'older':
-            const olderTemples = templeList.filter((temp) => new Date(temp.dedicated) < new Date(1950, 0, 1));
-            displayTemples(olderTemples);
+        case 'bottom':
+            const bottoms = clothesList.filter((clothe) => clothe.category === 'bottoms'); // Make sure the API response key is correct
+            displayClothes(bottoms);
             break;
 
         case 'all':
         default:
-            displayTemples(templeList);
+            displayClothes(clothesList);
             break;
     }
 });
@@ -81,8 +81,7 @@ document.querySelector('#sortBy').addEventListener('change', () => {
 /* Main Function */
 async function main() {
     const fetchedData = await fetchData();
-    templeList.push(...fetchedData.items);
-    displayTemples(templeList);
+    clothesList.push(...fetchedData.data); // Make sure the API response structure is correct
+    displayClothes(clothesList);
 }
 
-main();

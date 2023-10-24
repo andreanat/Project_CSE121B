@@ -3,6 +3,8 @@ const apiUrl = 'https://shein-xi-yin-data-service.p.rapidapi.com/product/get_bes
 const templesElement = document.getElementById('temples');
 const templeList = [];
 
+
+
 /* Function to Fetch Data from Shein API */
 async function fetchData() {
     try {
@@ -24,6 +26,36 @@ async function fetchData() {
         return null;
     }
 }
+/* ... (previous code) */
+
+/* Function to Display a Random Product */
+function displayRandomProduct() {
+    reset();
+    if (clothesList.length > 0) {
+        const randomIndex = Math.floor(Math.random() * clothesList.length);
+        const randomProduct = clothesList[randomIndex];
+        
+        const articleElement = document.createElement('article');
+        
+        const h3Element = document.createElement('h3');
+        h3Element.textContent = randomProduct.productName;
+
+        const imgElement = document.createElement('img');
+        imgElement.src = randomProduct.imageUrl;
+        imgElement.alt = randomProduct.productName;
+        
+        articleElement.appendChild(h3Element);
+        articleElement.appendChild(imgElement);
+        clothesElement.appendChild(articleElement);
+    } else {
+        console.log('No products to display.');
+    }
+}
+
+/* Event Listener for the "Show Random Product" button */
+document.getElementById('showRandomProductButton').addEventListener('click', displayRandomProduct);
+
+
 
 /* Function to Display Clothes */
 function displayClothes(clothesList) {

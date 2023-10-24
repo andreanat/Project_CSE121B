@@ -3,8 +3,6 @@ const apiUrl = 'https://shein-xi-yin-data-service.p.rapidapi.com/product/get_bes
 const templesElement = document.getElementById('temples');
 const templeList = [];
 
-
-
 /* Function to Fetch Data from Shein API */
 async function fetchData() {
     try {
@@ -63,11 +61,11 @@ function displayClothes(clothesList) {
         const articleElement = document.createElement('article');
 
         const h3Element = document.createElement('h3');
-        h3Element.textContent = clothe.productName; // Make sure the API response key is correct
+        h3Element.textContent = clothe.productName; 
 
         const imgElement = document.createElement('img');
-        imgElement.src = clothe.imageUrl; // Make sure the API response key is correct
-        imgElement.alt = clothe.productName; // Make sure the API response key is correct
+        imgElement.src = clothe.imageUrl; 
+        imgElement.alt = clothe.productName; 
 
         articleElement.appendChild(h3Element);
         articleElement.appendChild(imgElement);
@@ -88,18 +86,17 @@ document.querySelector('#sortBy').addEventListener('change', () => {
 
     switch (filter) {
         case 'sandals':
-            const sandals = clothesList.filter((clothe) => clothe.category === 'sandals'); // Make sure the API response key is correct
+            const sandals = clothesList.filter((clothe) => clothe.category === 'sandals'); 
             displayClothes(sandals);
             break;
 
         case 'shirts':
-            const shirts = clothesList.filter((clothe) => clothe.category === 'shirts'); // Make sure the API response key is correct
+            const shirts = clothesList.filter((clothe) => clothe.category === 'shirts'); 
             displayClothes(shirts);
             break;
 
         case 'bottom':
-            const bottoms = clothesList.filter((clothe) => clothe.category === 'bottoms'); // Make sure the API response key is correct
-            displayClothes(bottoms);
+            const bottoms = clothesList.filter((clothe) => clothe.category === 'bottoms');
             break;
 
         case 'all':
@@ -111,8 +108,8 @@ document.querySelector('#sortBy').addEventListener('change', () => {
 
 async function main() {
     const fetchedData = await fetchData();
-    templeList.push(...fetchedData.items); // Make sure the API response structure is correct
-    displayTemples(templeList);
+    clothesList.push(...fetchedData.items); 
+    displayTemples(clothesList);
 }
 
 main();

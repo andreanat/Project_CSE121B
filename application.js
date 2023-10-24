@@ -1,28 +1,21 @@
 /* Global Variables */
-const apiUrl = 'https://shein-xi-yin-data-service.p.rapidapi.com/product/get_best_sellers_list?country=US&language=en&currency=USD&page=1&size=20';
+const url = 'https://shein-xi-yin-data-service.p.rapidapi.com/product/get_best_sellers_list?country=US&language=en&currency=USD&page=1&size=20';
 const clothesElement = document.getElementById('clothes');
 const clothesList = []; 
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '21b97010d1msh813e1f0277b243ep120b26jsn616f4ee34816',
+		'X-RapidAPI-Host': 'shein-Xi-Yin-data-service.p.rapidapi.com'
+	}
+};
 
-/*  Fetch Data */
-async function fetchData() {
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': '21b97010d1msh813e1f0277b243ep120b26jsn616f4ee34816',
-                'X-RapidAPI-Host': 'shein-xi-yin-data-service.p.rapidapi.com'
-            }
-        });
-        if (response.ok) {
-            const data = await response.json();
-            return data;
-        } else {
-            throw new Error('Failed to fetch data from the API');
-        }
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
+try {
+	const response = await fetch(url, options);
+	const result = await response.text();
+	console.log(result);
+} catch (error) {
+	console.error(error);
 }
 
 /* function */

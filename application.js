@@ -5,7 +5,7 @@ const options = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Key': '21b97010d1msh813e1f0277b243ep120b26jsn616f4ee34816',
-        'X-RapidAPI-Host': 'shein-Xi-Yin-data-service.p.rapidapi.com'
+		'X-RapidAPI-Host': 'shein-Xi-Yin-data-service.p.rapidapi.com'
     }
 };
 
